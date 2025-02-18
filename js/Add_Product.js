@@ -113,7 +113,7 @@ const addButton = document.getElementById('addButton');
 
         function displayProducts() {
             const productGrid = document.getElementById("productGrid");
-            productGrid.innerHTML = ""; // Clear existing products
+            
 
             const products = loadProducts();
             products.forEach((product) => {
