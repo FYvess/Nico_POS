@@ -13,13 +13,13 @@
         <div class="logo-section">
             <a href="../index.html" class="logo-link">
                 <img src="../img/logo.jpg" alt="Logo" class="logo">
-                </a>
-                <h2>Wiseman Point of Sale</h2>
+            </a>
+            <h2>Wiseman Point of Sale</h2>
         </div>
         <div class="nav-links">
             <a href="../index.html">Home</a>
             <a href="Products.html">Products</a>
-            <a href="Feedback.html">Feedback</a>
+            <a href="Admin_Prod.html">Feedback</a>
             <a href="Help.html">Help</a>
         </div>
         <div class="hamburger">
@@ -34,43 +34,75 @@
             <!-- Product cards will be dynamically added here -->
         </div>
     </div>
+    <button id="addButton" class="add-button" style="display: none;">+</button>
 
-    <script src="products.js"></script>
+    <div id="addProductModal" class="modal" style="display: none;"></div>
+        <div class="modal-content" style="display: none;">
+            <span class="close">&times;</span>
+            <h2>Add New Product</h2>
+            <form class="admin-form" style="display: none;" id="productForm">
+                <input type="text" id="productName" placeholder="Product Name" required>
+                <input type="file" id="productImage" accept="image/*" required>
+                <textarea id="productDescription" placeholder="Product Description" required></textarea>
+                <input type="number" id="productRating" placeholder="Rating (0.00-5.00)" min="0" max="5" step="0.01" required>
+                <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editProductModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Product</h2>
+            <form class="admin-form" id="editProductForm"></form>
+                <input type="hidden" id="editProductId">
+                <input type="text" id="editProductName" placeholder="Product Name" required>
+                <input type="file" id="editProductImage" accept="image/*">
+                <textarea id="editProductDescription" placeholder="Product Description" required></textarea>
+                <input type="number" id="editProductRating" placeholder="Rating (0.00-5.00)" min="0" max="5" step="0.01" required>
+                <input type="number" id="editProductPrice" placeholder="Price" step="0.01" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function loadProducts() {
-                const products = localStorage.getItem("products");
-                return products ? JSON.parse(products) : [];
-            }
+        // Load the products from local storage
+        function loadProducts() {
+            const products = localStorage.getItem("products");
+            return products ? JSON.parse(products) : [];
+        }
 
-            function createProductCard(product) {
-                const productCard = document.createElement("div");
-                productCard.className = "product-card";
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <p>Rating: ${product.rating.toFixed(2)}/5</p>
-                    <p>Price: $${product.price.toFixed(2)}</p>
-                    <button class="add-to-cart">Add to Cart</button>
-                `;
-                return productCard;
-            }
+        // Display the products on the page
+        function displayProducts() {
+            const productGrid = document.getElementById("productGrid");
+            productGrid.innerHTML = ""; // Clear existing products
+            
+            const products = loadProducts();
+            products.forEach((product) => {
+                const productCard = createProductCard(product);
+                productGrid.appendChild(productCard);
+            });
+        }
 
-            function displayProducts() {
-                const productGrid = document.getElementById("productGrid");
-                productGrid.innerHTML = ""; // Clear existing products
+        // Create a product card element
+        function createProductCard(product) {
+            const productCard = document.createElement("div");
+            productCard.className = "product-card";
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <p>Rating: ${product.rating.toFixed(2)}/5</p>
+                <p>Price: $${product.price.toFixed(2)}</p>
+                <button class="add-to-cart">Add to Cart</button>
+            `;
+            return productCard;
+        }
 
-                const products = loadProducts();
-                products.forEach((product) => {
-                    const productCard = createProductCard(product);
-                    productGrid.appendChild(productCard);
-                });
-            }
-
-            displayProducts();
-        });
+        // Load and display the products when the page is loaded
+        window.addEventListener("DOMContentLoaded", displayProducts);
     </script>
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
