@@ -3,22 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQs</title>
+    <title>Shop Now</title>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/Prod.css">
 </head>
 <body>
     <nav>
         <div class="logo-section">
-            <img src="../img/logo.jpg" alt="Logo" class="logo">
-            <h2>Wiseman Point of Sale</h2>
-            <!-- <div class="dropdown-content">
-                <a href="#overview">Overview</a>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#demo">Demo</a>
-                <a href="#support">Support</a>
-            </div> -->
+            <a href="../index.html" class="logo-link">
+                <img src="../img/logo.jpg" alt="Logo" class="logo">
+                </a>
+                <h2>Wiseman Point of Sale</h2>
         </div>
         <div class="nav-links">
             <a href="../index.html">Home</a>
@@ -26,11 +22,49 @@
             <a href="Feedback.html">Feedback</a>
             <a href="Help.html">Help</a>
         </div>
-        <div class="hamburger">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
     </nav>
+
+    <div class="content">
+        <div class="product-grid" id="productGrid">
+            <!-- Product cards will be dynamically added here -->
+        </div>
+    </div>
+
+    <script src="products.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function loadProducts() {
+                const products = localStorage.getItem("products");
+                return products ? JSON.parse(products) : [];
+            }
+
+            function createProductCard(product) {
+                const productCard = document.createElement("div");
+                productCard.className = "product-card";
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p>Rating: ${product.rating.toFixed(2)}/5</p>
+                    <p>Price: $${product.price.toFixed(2)}</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                `;
+                return productCard;
+            }
+
+            function displayProducts() {
+                const productGrid = document.getElementById("productGrid");
+                productGrid.innerHTML = ""; // Clear existing products
+
+                const products = loadProducts();
+                products.forEach((product) => {
+                    const productCard = createProductCard(product);
+                    productGrid.appendChild(productCard);
+                });
+            }
+
+            displayProducts();
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Now</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/Prod.css">
+</head>
+<body>
+    <nav>
+        <div class="logo-section">
+            <a href="../index.html" class="logo-link">
+                <img src="../img/logo.jpg" alt="Logo" class="logo">
+                </a>
+                <h2>Wiseman Point of Sale</h2>
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="Products.html">Products</a>
+            <a href="Feedback.html">Feedback</a>
+            <a href="Help.html">Help</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="product-grid" id="productGrid">
+            <!-- Product cards will be dynamically added here -->
+        </div>
+    </div>
+
+    <button id="addButton" class="add-button">+</button>
+
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Product</h2>
+            <form class="admin-form" id="productForm">
+                <input type="text" id="productName" placeholder="Product Name" required>
+                <input type="file" id="productImage" accept="image/*" required>
+                <textarea id="productDescription" placeholder="Product Description" required></textarea>
+                <input type="number" id="productRating" placeholder="Rating (0.00-5.00)" min="0" max="5" step="0.01" required>
+                <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Product</h2>
+            <form class="admin-form" id="editProductForm">
+                <input type="hidden" id="editProductId">
+                <input type="text" id="editProductName" placeholder="Product Name" required>
+                <input type="file" id="editProductImage" accept="image/*">
+                <textarea id="editProductDescription" placeholder="Product Description" required></textarea>
+                <input type="number" id="editProductRating" placeholder="Rating (0.00-5.00)" min="0" max="5" step="0.01" required>
+                <input type="number" id="editProductPrice" placeholder="Price" step="0.01" required>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/Add_Product.js"></script>
+</body>
+</html>
